@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Quest Prototype</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=DotGothic16&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div id="app-container">
+        <!-- Header -->
+        <header id="game-header">
+            <div class="game-logo">⚔️ <span>Local Quest</span></div>
+            <div class="level-indicator">Lv. <span id="user-level">1</span></div>
+            <div class="gold-indicator"><span id="user-gold">0</span> G</div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main id="main-content">
+            <!-- Dynamic content will be rendered here -->
+        </main>
+
+        <!-- Navigation -->
+        <nav id="game-nav">
+            <button class="nav-btn active" data-target="home">クエスト</button>
+            <button class="nav-btn" data-target="report">ぼうけんのしょ</button>
+            <button class="nav-btn" data-target="profile">ステータス</button>
+        </nav>
+    </div>
+
+    <!-- Templates -->
+    <template id="quest-item-template">
+        <div class="quest-item">
+            <div class="quest-rank"></div>
+            <div class="quest-info">
+                <h3 class="quest-title"></h3>
+                <p class="quest-reward"></p>
+            </div>
+            <button class="accept-btn">うける</button>
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

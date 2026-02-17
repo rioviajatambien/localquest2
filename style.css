@@ -1,0 +1,322 @@
+:root {
+    --primary-color: #3b82f6;
+    --accent-color: #f59e0b;
+    --bg-color: #1a1a2e;
+    --text-color: #e2e8f0;
+    --panel-bg: #16213e;
+    --border-color: #475569;
+    --font-main: 'DotGothic16', sans-serif;
+    --font-display: 'Press Start 2P', cursive;
+}
+
+* {
+    box-sizing: border-box;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-main);
+    background-color: #0f172a;
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+#app-container {
+    width: 100%;
+    max-width: 420px;
+    background-color: var(--bg-color);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Header */
+#game-header {
+    background-color: var(--panel-bg);
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid var(--border-color);
+    font-size: 1.2rem;
+}
+
+.game-logo {
+    font-family: var(--font-display);
+    color: var(--primary-color);
+    text-shadow: 2px 2px 0 #000;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.game-logo span {
+    color: var(--accent-color);
+}
+
+.level-indicator {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.gold-indicator {
+    color: #fbbf24;
+}
+
+/* Main Content */
+#main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem;
+    position: relative;
+}
+
+/* Navigation */
+#game-nav {
+    background-color: var(--panel-bg);
+    display: flex;
+    border-top: 2px solid var(--border-color);
+    padding-bottom: env(safe-area-inset-bottom);
+}
+
+.nav-btn {
+    flex: 1;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    padding: 1rem;
+    font-family: var(--font-main);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.nav-btn.active {
+    color: var(--accent-color);
+    background-color: rgba(245, 158, 11, 0.1);
+    font-weight: bold;
+}
+
+/* Components */
+.btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    /* Slightly rounded */
+    font-family: var(--font-main);
+    font-size: 1.1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #2563eb;
+    /* RPG button style */
+    transition: transform 0.1s, box-shadow 0.1s;
+    width: 100%;
+    text-align: center;
+}
+
+.btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background-color: #64748b;
+    box-shadow: 0 4px 0 #475569;
+}
+
+/* Quest List */
+.quest-item {
+    background-color: var(--panel-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.quest-thumbnail {
+    width: 100%;
+    height: 120px;
+    background-color: #334155;
+    object-fit: cover;
+}
+
+.quest-content {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.quest-rank {
+    width: 40px;
+    height: 40px;
+    background-color: #334155;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    color: var(--accent-color);
+    flex-shrink: 0;
+    border: 2px solid var(--border-color);
+}
+
+.quest-info {
+    flex: 1;
+}
+
+.quest-title {
+    margin: 0 0 0.25rem 0;
+    font-size: 1.1rem;
+}
+
+.quest-reward {
+    margin: 0;
+    color: #fbbf24;
+    font-size: 0.9rem;
+}
+
+.accept-btn {
+    align-self: flex-end;
+    margin-top: 0.5rem;
+    width: 100%;
+}
+
+/* Quest Detail */
+.quest-detail-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.quest-detail-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.role-assignment {
+    background-color: #334155;
+    border-radius: 8px;
+    padding: 1rem;
+    margin-bottom: 2rem;
+}
+
+.role-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px dashed #64748b;
+}
+
+.role-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-color);
+    margin-right: 0.5rem;
+    background-color: #000;
+}
+
+.role-info {
+    display: flex;
+    align-items: center;
+}
+
+.role-name {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+/* Active Quest */
+.camera-mock {
+    width: 100%;
+    height: 300px;
+    background-color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    margin-bottom: 1rem;
+    border: 2px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animation classes */
+.fade-in {
+    animation: fadeIn 0.3s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Modal */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.modal-content {
+    background: var(--panel-bg);
+    padding: 2rem;
+    border: 2px solid var(--accent-color);
+    border-radius: 8px;
+    text-align: center;
+    width: 90%;
+    max-width: 350px;
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.level-up-text {
+    font-family: var(--font-display);
+    color: var(--accent-color);
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 0 #000;
+}
