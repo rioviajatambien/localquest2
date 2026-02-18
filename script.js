@@ -279,6 +279,7 @@ function renderHome() {
         const rank = clone.querySelector('.quest-rank');
         const info = clone.querySelector('.quest-info');
         const btn = clone.querySelector('.accept-btn');
+        btn.classList.add('btn'); // Add base button class
 
         // Move elements into content wrapper
         content.appendChild(rank);

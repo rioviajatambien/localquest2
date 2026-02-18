@@ -107,26 +107,38 @@ body {
 }
 
 /* Components */
+/* Components */
 .btn {
     background-color: var(--primary-color);
     color: white;
-    border: none;
+    border: 4px solid #1e3a8a;
+    /* Darker blue border */
+    border-bottom-width: 6px;
     padding: 0.8rem 1.5rem;
-    border-radius: 4px;
-    /* Slightly rounded */
-    font-family: var(--font-main);
-    font-size: 1.1rem;
+    border-radius: 0;
+    /* Square corners for pixel feel */
+    font-family: var(--font-display);
+    /* Use the pixel font */
+    font-size: 1rem;
     cursor: pointer;
-    box-shadow: 0 4px 0 #2563eb;
-    /* RPG button style */
-    transition: transform 0.1s, box-shadow 0.1s;
+    box-shadow: 0 4px 0 #000;
+    /* Hard shadow */
+    transition: transform 0.1s, box-shadow 0.1s, margin-top 0.1s;
     width: 100%;
     text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    top: 0;
 }
 
 .btn:active {
-    transform: translateY(4px);
-    box-shadow: none;
+    transform: none;
+    box-shadow: 0 0 0 #000;
+    top: 4px;
+    /* Physical press effect */
+    border-bottom-width: 4px;
+    /* Compress border */
 }
 
 .btn-secondary {
@@ -192,6 +204,13 @@ body {
     align-self: flex-end;
     margin-top: 0.5rem;
     width: 100%;
+    background-color: #10b981;
+    /* Green */
+    border-color: #065f46;
+}
+
+.accept-btn:active {
+    background-color: #059669;
 }
 
 /* Quest Detail */
