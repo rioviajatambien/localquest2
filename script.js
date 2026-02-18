@@ -46,12 +46,154 @@ const userLevelEl = document.getElementById('user-level');
 const userGoldEl = document.getElementById('user-gold');
 const navBtns = document.querySelectorAll('.nav-btn');
 
+// Audio Controller (Web Audio API)
+class AudioController {
+    constructor() {
+        this.ctx = null;
+        this.bgmOscillators = [];
+        this.isPlaying = false;
+        this.gainNode = null;
+    }
+
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+            this.gainNode = this.ctx.createGain();
+            this.gainNode.gain.value = 0.1; // Low volume
+            this.gainNode.connect(this.ctx.destination);
+        }
+    }
+
+    toggleBgm() {
+        if (this.isPlaying) {
+            this.stopBgm();
+        } else {
+            this.playBgm();
+        }
+        return this.isPlaying;
+    }
+
+    playBgm() {
+        this.init();
+        if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+        this.isPlaying = true;
+        this.scheduleNotes();
+    }
+
+    stopBgm() {
+        this.isPlaying = false;
+        this.bgmOscillators.forEach(osc => {
+            try { osc.stop(); } catch (e) { }
+        });
+        this.bgmOscillators = [];
+    }
+
+    // Simple procedural loop
+    scheduleNotes() {
+        if (!this.isPlaying) return;
+
+        const startTime = this.ctx.currentTime;
+        const tempo = 0.2; // Seconds per note
+        // Simple RPG Town Theme melody (approximate)
+        const melody = [
+            261.63, 293.66, 329.63, 392.00,
+            329.63, 392.00, 523.25, 392.00,
+            349.23, 329.63, 293.66, 261.63,
+            293.66, 329.63, 293.66, 0
+        ]; // C4, D4, E4, G4...
+
+        melody.forEach((freq, index) => {
+            if (freq > 0) {
+                const osc = this.ctx.createOscillator();
+                osc.type = 'square'; // Retro sound
+                osc.frequency.value = freq;
+                osc.connect(this.gainNode);
+                osc.start(startTime + index * tempo);
+                osc.stop(startTime + index * tempo + tempo * 0.8);
+                this.bgmOscillators.push(osc);
+            }
+        });
+
+        // Loop
+        setTimeout(() => {
+            if (this.isPlaying) this.scheduleNotes();
+        }, melody.length * tempo * 1000);
+    }
+}
+
+const audioCtrl = new AudioController();
+
 // Initialization
 document.addEventListener('DOMContentLoaded', () => {
     updateHeader();
-    renderHome();
+    // Check if user has seen opening
+    if (!localStorage.getItem('localquest_opening_seen')) {
+        renderOpening();
+    } else {
+        renderHome();
+    }
     setupNav();
 });
+
+
+function renderOpening() {
+    mainContent.innerHTML = '';
+
+    const div = document.createElement('div');
+    div.classList.add('fade-in');
+    div.style.textAlign = 'center';
+    div.style.paddingTop = '2rem';
+
+    div.innerHTML = `
+        <div style="background:#000; border:4px double #f59e0b; padding:1rem; border-radius:8px; margin-bottom:1rem; position:relative;">
+            <img src="assets/king_avatar_1771386847022.png" style="width:80px; height:80px; border-radius:50%; border:2px solid #fff; position:absolute; top:-40px; left:50%; transform:translateX(-50%); background:#000;">
+            <div style="margin-top:40px; font-family:var(--font-main); line-height:1.6; min-height:120px; text-align:left;" id="typewriter-text"></div>
+        </div>
+        <button class="btn" id="start-adventure-btn" style="opacity:0; transition:opacity 0.5s;">ぼうけんをはじめる</button>
+    `;
+
+    mainContent.appendChild(div);
+
+    const text = "ようこそ、わかき ゆうしゃよ！\nこのまちは いま、たくさんの\n「こまりごと」で あふれておる。\nそなたの ちからで\nまちのひとを たすけてくれぬか？";
+    const typeWriterEl = document.getElementById('typewriter-text');
+    let i = 0;
+
+    function typeWriter() {
+        if (i < text.length) {
+            typeWriterEl.textContent += text.charAt(i);
+            i++;
+            setTimeout(typeWriter, 50);
+        } else {
+            document.getElementById('start-adventure-btn').style.opacity = '1';
+        }
+    }
+
+    // Start typing after a short delay
+    setTimeout(typeWriter, 500);
+
+    document.getElementById('start-adventure-btn').onclick = () => {
+        // Start BGM on user interaction
+        audioCtrl.playBgm();
+        updateBgmIcon();
+
+        localStorage.setItem('localquest_opening_seen', 'true');
+        navigateTo('home');
+    };
+}
+
+// Init logic modified above, removing old listener
+// ... (Keeping rest of file)
+
+// Helper to update BGM icon in header
+function updateBgmIcon() {
+    const bgmBtn = document.getElementById('bgm-toggle');
+    if (bgmBtn) {
+        bgmBtn.textContent = audioCtrl.isPlaying ? '🔊' : '🔇';
+    }
+}
+
 
 // Navigation Setup
 function setupNav() {
@@ -93,6 +235,15 @@ function navigateTo(screenName) {
 function updateHeader() {
     userLevelEl.textContent = state.level;
     userGoldEl.textContent = state.gold;
+
+    // BGM Toggle Listener (once)
+    const bgmBtn = document.getElementById('bgm-toggle');
+    if (bgmBtn && !bgmBtn.onclick) {
+        bgmBtn.onclick = () => {
+            audioCtrl.toggleBgm();
+            updateBgmIcon();
+        };
+    }
 }
 
 /* ---------------- SCREEN RENDERERS ---------------- */
