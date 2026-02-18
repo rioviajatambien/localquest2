@@ -117,8 +117,8 @@ body {
     padding: 0.8rem 1.5rem;
     border-radius: 0;
     /* Square corners for pixel feel */
-    font-family: var(--font-display);
-    /* Use the pixel font */
+    font-family: var(--font-main);
+    /* Use DotGothic16 for Japanese support */
     font-size: 1rem;
     cursor: pointer;
     box-shadow: 0 4px 0 #000;
