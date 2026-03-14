@@ -19,22 +19,22 @@ const state = {
         {
             id: 2,
             rank: 'C',
-            title: 'おつかいミッション',
-            description: 'ゆうがたのスーパーへ潜入せよ！「たまご」と「ぎゅうにゅう」を確保するのだ。',
-            reward: '300 G + おやつ',
-            exp: 100,
-            location: 'スーパーマーケット',
-            image: null // Placeholder
+            title: 'ぎゅうにゅうはいたつ',
+            description: 'むらびとたちにしんせんでおいしいぎゅうにゅうをはいたつするのだ！おとさないように気をつけて。',
+            reward: '3000 G + おやつ',
+            exp: 1000,
+            location: 'はじまりのむら',
+            image: 'assets/quest_milk.png'
         },
         {
             id: 3,
-            rank: 'B',
-            title: 'おじいちゃんへの手紙',
-            description: '遠くに住む賢者に近況を報告せよ。絵日記でも可。',
-            reward: '500 G',
-            exp: 200,
-            location: '自宅',
-            image: null // Placeholder
+            rank: 'A',
+            title: 'カフェでおてつだい',
+            description: 'おきゃくさんにおいしいコーヒーをもっていくのだ！',
+            reward: '500000 G',
+            exp: 200000,
+            location: 'こーひー あおきどう',
+            image: 'assets/quest_cafe.png'
         }
     ],
     adventureLog: [] // Stores completed quests
